@@ -1,7 +1,6 @@
 package com.gavinandre.mvvmdemo.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -10,7 +9,9 @@ import androidx.databinding.DataBindingUtil
 import com.gavinandre.mvvmdemo.R
 import com.gavinandre.mvvmdemo.databinding.ActivityPaoBinding
 import com.gavinandre.mvvmdemo.helper.disposableOnDestroy
+import com.gavinandre.mvvmdemo.model.local.AppDatabase
 import com.gavinandre.mvvmdemo.model.remote.PaoService
+import com.gavinandre.mvvmdemo.model.repository.PaoRepo
 import com.gavinandre.mvvmdemo.viewmodel.PaoViewModel
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -33,8 +34,10 @@ class PaoActivity : AppCompatActivity() {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(PaoService::class.java)
+        val local = AppDatabase.getInstance(applicationContext).paoDao()
+        val repo = PaoRepo(remote, local)
         
-        mViewMode = PaoViewModel(remote)
+        mViewMode = PaoViewModel(repo)
         mBinding.paoViewModel = mViewMode
     }
     
@@ -50,9 +53,7 @@ class PaoActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.action_refresh -> mViewMode.loadArticle()
                     .disposableOnDestroy(this)
-                    .subscribe({ t ->
-                        Log.i(TAG, "subscribe $t")
-                    }, { error -> dispatchError(error) })
+                    .subscribe({}, { error -> dispatchError(error) })
                 else -> {
                 }
             }

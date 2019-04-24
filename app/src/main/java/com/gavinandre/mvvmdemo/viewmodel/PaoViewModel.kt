@@ -6,10 +6,10 @@ import androidx.databinding.ObservableField
 import com.gavinandre.mvvmdemo.helper.Utils
 import com.gavinandre.mvvmdemo.helper.async
 import com.gavinandre.mvvmdemo.model.data.Article
-import com.gavinandre.mvvmdemo.model.remote.PaoService
+import com.gavinandre.mvvmdemo.model.repository.PaoRepo
 import io.reactivex.Single
 
-class PaoViewModel(private val remote: PaoService) {
+class PaoViewModel(private val repo: PaoRepo) {
     
     private val TAG = PaoViewModel::class.java.simpleName
     
@@ -20,11 +20,11 @@ class PaoViewModel(private val remote: PaoService) {
     
     fun loadArticle(): Single<Article> =
         //为了简单起见这里先写个默认的id
-        remote.getArticleDetail(8773)
+        repo.getArticleDetail(8773)
             .async(1000)
             .doOnSubscribe { startLoad() }
             .doOnSuccess {
-                Log.i(TAG, "doOnSuccess: $it")
+                Log.i(TAG, "doOnSuccess2: ${Thread.currentThread().name}")
                 title.set(it.title)
                 it.content?.apply {
                     val articleContent = Utils.processImgSrc(this)
