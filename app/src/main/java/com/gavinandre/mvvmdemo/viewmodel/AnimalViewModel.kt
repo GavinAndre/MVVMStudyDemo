@@ -1,7 +1,7 @@
 package com.gavinandre.mvvmdemo.viewmodel
 
 import androidx.databinding.ObservableField
-import com.gavinandre.mvvmdemo.model.Animal
+import com.gavinandre.mvvmdemo.model.data.Animal
 
 class AnimalViewModel(val animal: Animal) {
     
