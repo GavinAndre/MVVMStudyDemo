@@ -29,6 +29,7 @@ class PaoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setSupportActionBar(mBinding.toolbar)
         mBinding.paoViewModel = mViewMode
+        mBinding.lifecycleOwner = this
     }
     
     object PaoActivityBindingAdapter {
@@ -61,7 +62,8 @@ class PaoActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.action_refresh -> mViewMode.loadArticle()
                     .disposableOnDestroy(this)
-                    .subscribe({}, { error -> dispatchError(error) })
+//                    .subscribe({}, { error -> dispatchError(error) })
+                    .subscribe { _, _ -> }
                 else -> {
                 }
             }

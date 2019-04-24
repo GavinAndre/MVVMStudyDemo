@@ -1,8 +1,7 @@
 package com.gavinandre.mvvmstudydemo.viewmodel
 
 import android.util.Log
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gavinandre.mvvmstudydemo.helper.Utils
 import com.gavinandre.mvvmstudydemo.helper.async
@@ -14,10 +13,14 @@ class PaoViewModel(private val repo: PaoRepo) : ViewModel() {
     
     private val TAG = PaoViewModel::class.java.simpleName
     
-    val loading = ObservableBoolean(false)//加载
-    val content = ObservableField<String>()//内容
-    val title = ObservableField<String>()//标题
-    val error = ObservableField<Throwable>()//错误Toast
+    val loading = MutableLiveData<Boolean>()//加载
+    val content = MutableLiveData<String>()//内容
+    val title = MutableLiveData<String>()//标题
+    val error = MutableLiveData<Throwable>()//错误Toast
+    
+    init {
+        loading.value = false
+    }
     
     fun loadArticle(): Single<Article> =
         //为了简单起见这里先写个默认的id
@@ -26,16 +29,20 @@ class PaoViewModel(private val repo: PaoRepo) : ViewModel() {
             .doOnSubscribe { startLoad() }
             .doOnSuccess {
                 Log.i(TAG, "doOnSuccess2: ${Thread.currentThread().name}")
-                title.set(it.title)
+                title.value = it.title
                 it.content?.apply {
                     val articleContent = Utils.processImgSrc(this)
-                    content.set(articleContent)
+                    content.value = (articleContent)
                 }
             }
-            .doOnError { error.set(it) }
+            .doOnError { error.value = (it) }
             .doAfterTerminate { stopLoad() }
     
+    private fun startLoad() {
+        loading.value = true
+    }
     
-    fun startLoad() = loading.set(true)
-    fun stopLoad() = loading.set(false)
+    private fun stopLoad() {
+        loading.value = false
+    }
 }
