@@ -1,24 +1,24 @@
 package com.gavinandre.mvvmdemo.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import com.gavinandre.mvvmdemo.R
 import com.gavinandre.mvvmdemo.databinding.ActivityPaoBinding
-import com.gavinandre.mvvmdemo.helper.setMarkdown
+import com.gavinandre.mvvmdemo.helper.disposableOnDestroy
 import com.gavinandre.mvvmdemo.model.remote.PaoService
 import com.gavinandre.mvvmdemo.viewmodel.PaoViewModel
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import us.feras.mdv.MarkdownView
 
 class PaoActivity : AppCompatActivity() {
+    
+    private val TAG = PaoActivity::class.java.simpleName
     
     lateinit var mBinding: ActivityPaoBinding
     lateinit var mViewMode: PaoViewModel
@@ -38,18 +38,6 @@ class PaoActivity : AppCompatActivity() {
         mBinding.paoViewModel = mViewMode
     }
     
-    @BindingAdapter(value = ["markdown"])
-    fun bindMarkDown(v: MarkdownView, markdown: String?) {
-        markdown?.let {
-            v.setMarkdown(it)
-        }
-    }
-    
-    @BindingAdapter(value = ["toast"])
-    fun bindToast(v: View, msg: Throwable) {
-        Toast.makeText(v.context, msg.message, Toast.LENGTH_SHORT).show()
-    }
-    
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menu?.let {
             menuInflater.inflate(R.menu.detail_menu, it)
@@ -61,6 +49,10 @@ class PaoActivity : AppCompatActivity() {
         item?.let {
             when (it.itemId) {
                 R.id.action_refresh -> mViewMode.loadArticle()
+                    .disposableOnDestroy(this)
+                    .subscribe({ t ->
+                        Log.i(TAG, "subscribe $t")
+                    }, { error -> dispatchError(error) })
                 else -> {
                 }
             }
@@ -68,4 +60,10 @@ class PaoActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
     
+    //依旧不依赖于具体实现，可以是Toast/Dialog/Snackbar等等
+    private fun dispatchError(error: Throwable?) {
+        error?.let {
+            Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+        }
+    }
 }
