@@ -3,42 +3,50 @@ package com.gavinandre.mvvmstudydemo.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import com.gavinandre.mvvmstudydemo.R
 import com.gavinandre.mvvmstudydemo.databinding.ActivityPaoBinding
 import com.gavinandre.mvvmstudydemo.helper.disposableOnDestroy
-import com.gavinandre.mvvmstudydemo.model.local.AppDatabase
-import com.gavinandre.mvvmstudydemo.model.remote.PaoService
-import com.gavinandre.mvvmstudydemo.model.repository.PaoRepo
+import com.gavinandre.mvvmstudydemo.helper.setMarkdown
 import com.gavinandre.mvvmstudydemo.viewmodel.PaoViewModel
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import us.feras.mdv.MarkdownView
 
 class PaoActivity : AppCompatActivity() {
     
     private val TAG = PaoActivity::class.java.simpleName
     
-    lateinit var mBinding: ActivityPaoBinding
-    lateinit var mViewMode: PaoViewModel
+    private val mBinding: ActivityPaoBinding by lazy {
+        DataBindingUtil.setContentView<ActivityPaoBinding>(this, R.layout.activity_pao)
+    }
+    private val mViewMode: PaoViewModel by viewModel()
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_pao)
         setSupportActionBar(mBinding.toolbar)
-        
-        val remote = Retrofit.Builder()
-            .baseUrl("http://api.jcodecraeer.com/")
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build().create(PaoService::class.java)
-        val local = AppDatabase.getInstance(applicationContext).paoDao()
-        val repo = PaoRepo(remote, local)
-        
-        mViewMode = PaoViewModel(repo)
         mBinding.paoViewModel = mViewMode
+    }
+    
+    object PaoActivityBindingAdapter {
+        @BindingAdapter(value = ["markdown"])
+        @JvmStatic
+        fun bindMarkDown(v: MarkdownView, markdown: String?) {
+            markdown?.let {
+                v.setMarkdown(it)
+            }
+        }
+        
+        @BindingAdapter(value = ["toast"])
+        @JvmStatic
+        fun bindToast(v: View, msg: Throwable?) {
+            msg?.let {
+                Toast.makeText(v.context, it.message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
     
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

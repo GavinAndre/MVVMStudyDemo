@@ -3,13 +3,14 @@ package com.gavinandre.mvvmstudydemo.viewmodel
 import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
+import androidx.lifecycle.ViewModel
 import com.gavinandre.mvvmstudydemo.helper.Utils
 import com.gavinandre.mvvmstudydemo.helper.async
 import com.gavinandre.mvvmstudydemo.model.data.Article
 import com.gavinandre.mvvmstudydemo.model.repository.PaoRepo
 import io.reactivex.Single
 
-class PaoViewModel(private val repo: PaoRepo) {
+class PaoViewModel(private val repo: PaoRepo) : ViewModel() {
     
     private val TAG = PaoViewModel::class.java.simpleName
     
