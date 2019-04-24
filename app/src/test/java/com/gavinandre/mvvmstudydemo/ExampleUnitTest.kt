@@ -1,4 +1,4 @@
-package com.gavinandre.mvvmdemo
+package com.gavinandre.mvvmstudydemo
 
 import org.junit.Test
 

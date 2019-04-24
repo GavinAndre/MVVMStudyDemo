@@ -1,12 +1,12 @@
-package com.gavinandre.mvvmdemo.viewmodel
+package com.gavinandre.mvvmstudydemo.viewmodel
 
 import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
-import com.gavinandre.mvvmdemo.helper.Utils
-import com.gavinandre.mvvmdemo.helper.async
-import com.gavinandre.mvvmdemo.model.data.Article
-import com.gavinandre.mvvmdemo.model.repository.PaoRepo
+import com.gavinandre.mvvmstudydemo.helper.Utils
+import com.gavinandre.mvvmstudydemo.helper.async
+import com.gavinandre.mvvmstudydemo.model.data.Article
+import com.gavinandre.mvvmstudydemo.model.repository.PaoRepo
 import io.reactivex.Single
 
 class PaoViewModel(private val repo: PaoRepo) {

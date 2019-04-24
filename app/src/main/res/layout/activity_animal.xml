@@ -7,7 +7,7 @@
         <!--需要的viewModel,通过mBinding.vm=mViewMode注入-->
         <variable
             name="animalViewModel"
-            type="com.gavinandre.mvvmdemo.viewmodel.AnimalViewModel" />
+            type="com.gavinandre.mvvmstudydemo.viewmodel.AnimalViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

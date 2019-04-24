@@ -1,4 +1,4 @@
-package com.gavinandre.mvvmdemo.helper
+package com.gavinandre.mvvmstudydemo.helper
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

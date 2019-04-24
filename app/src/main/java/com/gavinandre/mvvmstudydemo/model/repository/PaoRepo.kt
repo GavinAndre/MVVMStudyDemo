@@ -1,7 +1,7 @@
-package com.gavinandre.mvvmdemo.model.repository
+package com.gavinandre.mvvmstudydemo.model.repository
 
-import com.gavinandre.mvvmdemo.model.local.dao.PaoDao
-import com.gavinandre.mvvmdemo.model.remote.PaoService
+import com.gavinandre.mvvmstudydemo.model.local.dao.PaoDao
+import com.gavinandre.mvvmstudydemo.model.remote.PaoService
 
 class PaoRepo(private val remote: PaoService, private val local: PaoDao) {
     

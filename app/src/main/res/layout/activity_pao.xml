@@ -10,7 +10,7 @@
 
         <variable
             name="paoViewModel"
-            type="com.gavinandre.mvvmdemo.viewmodel.PaoViewModel" />
+            type="com.gavinandre.mvvmstudydemo.viewmodel.PaoViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

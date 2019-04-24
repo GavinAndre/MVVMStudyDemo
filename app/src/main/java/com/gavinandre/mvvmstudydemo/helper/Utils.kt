@@ -1,4 +1,4 @@
-package com.gavinandre.mvvmdemo.helper
+package com.gavinandre.mvvmstudydemo.helper
 
 import org.jsoup.Jsoup
 

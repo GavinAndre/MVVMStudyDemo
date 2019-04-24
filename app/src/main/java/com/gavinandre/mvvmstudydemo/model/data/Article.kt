@@ -1,4 +1,4 @@
-package com.gavinandre.mvvmdemo.model.data
+package com.gavinandre.mvvmstudydemo.model.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

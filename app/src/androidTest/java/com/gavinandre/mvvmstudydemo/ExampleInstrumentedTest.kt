@@ -1,4 +1,4 @@
-package com.gavinandre.mvvmdemo
+package com.gavinandre.mvvmstudydemo
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

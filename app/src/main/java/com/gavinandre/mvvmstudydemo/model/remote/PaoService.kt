@@ -1,6 +1,6 @@
-package com.gavinandre.mvvmdemo.model.remote
+package com.gavinandre.mvvmstudydemo.model.remote
 
-import com.gavinandre.mvvmdemo.model.data.Article
+import com.gavinandre.mvvmstudydemo.model.data.Article
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

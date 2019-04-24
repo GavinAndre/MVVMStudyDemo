@@ -1,4 +1,4 @@
-package com.gavinandre.mvvmdemo.view
+package com.gavinandre.mvvmstudydemo.view
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,13 +6,13 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.gavinandre.mvvmdemo.R
-import com.gavinandre.mvvmdemo.databinding.ActivityPaoBinding
-import com.gavinandre.mvvmdemo.helper.disposableOnDestroy
-import com.gavinandre.mvvmdemo.model.local.AppDatabase
-import com.gavinandre.mvvmdemo.model.remote.PaoService
-import com.gavinandre.mvvmdemo.model.repository.PaoRepo
-import com.gavinandre.mvvmdemo.viewmodel.PaoViewModel
+import com.gavinandre.mvvmstudydemo.R
+import com.gavinandre.mvvmstudydemo.databinding.ActivityPaoBinding
+import com.gavinandre.mvvmstudydemo.helper.disposableOnDestroy
+import com.gavinandre.mvvmstudydemo.model.local.AppDatabase
+import com.gavinandre.mvvmstudydemo.model.remote.PaoService
+import com.gavinandre.mvvmstudydemo.model.repository.PaoRepo
+import com.gavinandre.mvvmstudydemo.viewmodel.PaoViewModel
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

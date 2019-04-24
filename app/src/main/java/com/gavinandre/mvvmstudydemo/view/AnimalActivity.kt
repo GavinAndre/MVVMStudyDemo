@@ -1,12 +1,12 @@
-package com.gavinandre.mvvmdemo.view
+package com.gavinandre.mvvmstudydemo.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.gavinandre.mvvmdemo.R
-import com.gavinandre.mvvmdemo.databinding.ActivityAnimalBinding
-import com.gavinandre.mvvmdemo.model.data.Animal
-import com.gavinandre.mvvmdemo.viewmodel.AnimalViewModel
+import com.gavinandre.mvvmstudydemo.R
+import com.gavinandre.mvvmstudydemo.databinding.ActivityAnimalBinding
+import com.gavinandre.mvvmstudydemo.model.data.Animal
+import com.gavinandre.mvvmstudydemo.viewmodel.AnimalViewModel
 
 class AnimalActivity : AppCompatActivity() {
     

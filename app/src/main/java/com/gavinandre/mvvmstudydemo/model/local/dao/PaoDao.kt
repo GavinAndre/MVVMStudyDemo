@@ -1,10 +1,10 @@
-package com.gavinandre.mvvmdemo.model.local.dao
+package com.gavinandre.mvvmstudydemo.model.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.gavinandre.mvvmdemo.model.data.Article
+import com.gavinandre.mvvmstudydemo.model.data.Article
 import io.reactivex.Single
 
 @Dao
