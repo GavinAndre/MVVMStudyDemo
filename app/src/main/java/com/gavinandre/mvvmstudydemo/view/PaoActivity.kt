@@ -1,6 +1,7 @@
 package com.gavinandre.mvvmstudydemo.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -30,6 +31,8 @@ class PaoActivity : AppCompatActivity() {
         setSupportActionBar(mBinding.toolbar)
         mBinding.paoViewModel = mViewMode
         mBinding.lifecycleOwner = this
+        lifecycle.addObserver(mViewMode)
+        Log.i(TAG, "onCreate: ")
     }
     
     object PaoActivityBindingAdapter {

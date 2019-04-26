@@ -1,6 +1,8 @@
 package com.gavinandre.mvvmstudydemo.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gavinandre.mvvmstudydemo.helper.Utils
@@ -9,7 +11,7 @@ import com.gavinandre.mvvmstudydemo.model.data.Article
 import com.gavinandre.mvvmstudydemo.model.repository.PaoRepo
 import io.reactivex.Single
 
-class PaoViewModel(private val repo: PaoRepo) : ViewModel() {
+class PaoViewModel(private val repo: PaoRepo) : ViewModel(), DefaultLifecycleObserver {
     
     private val TAG = PaoViewModel::class.java.simpleName
     
@@ -20,6 +22,16 @@ class PaoViewModel(private val repo: PaoRepo) : ViewModel() {
     
     init {
         loading.value = false
+    }
+    
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        Log.i(TAG, "BasePresenter.onCreate $javaClass")
+    }
+    
+    override fun onDestroy(owner: LifecycleOwner) {
+        super.onDestroy(owner)
+        Log.i(TAG, "BasePresenter.onDestroy $javaClass")
     }
     
     fun loadArticle(): Single<Article> =
