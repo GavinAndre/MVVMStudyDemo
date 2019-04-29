@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.gavinandre.mvvmstudydemo.R
 import com.gavinandre.mvvmstudydemo.databinding.ActivityPaoBinding
 import com.gavinandre.mvvmstudydemo.helper.disposableOnDestroy
@@ -32,7 +33,9 @@ class PaoActivity : AppCompatActivity() {
         mBinding.paoViewModel = mViewMode
         mBinding.lifecycleOwner = this
         lifecycle.addObserver(mViewMode)
-        Log.i(TAG, "onCreate: ")
+        mViewMode.title.observe(this, Observer<String> {
+            Log.i(TAG, "onCreate: $it")
+        })
     }
     
     object PaoActivityBindingAdapter {
